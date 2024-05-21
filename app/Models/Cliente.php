@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Cliente extends Model
+class Cliente extends Authenticatable
 {
     use HasFactory;
 
@@ -22,6 +22,10 @@ class Cliente extends Model
         'contrasena_cli',
         'direccion_cli',
         'telefono_cli',
+    ];
+
+    protected $hidden = [
+        'contrasena_cli', // Oculta la contraseña al serializar el modelo
     ];
 
     // Relación con la tabla de teléfonos

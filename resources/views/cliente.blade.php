@@ -13,13 +13,13 @@
 
 <body style="" class="">
 <!--HEADER-->
-    <header class="header">
+<header class="header">
         <div class="logo">
             <img src="/img/logo.png" alt="Logo de la marca">
         </div>
-        <a class="btn" href="{{ url('/inicio') }}"><button>Cerrar sesión</button></a>
+        <a class="btn" method="POST" action="{{ route('logout') }}"><button type="button" onclick="cerrarSesion()">Cerrar sesión</button></a>
     </header>
-    <!--FOOTER-->
+<!--FOOTER-->
 <footer class="pie-pagina" id="footer">
     <div class="grupo-1">
         <div class="box">
@@ -51,5 +51,28 @@
         <small>&copy; 2024 <b> Ferremas </b> - Todos los Derechos Reservados.</small>
     </div>
 </footer>
+
+<!-- SCRIPT PARA CERRAR SESIÓN -->
+<script>
+    // Función para enviar el formulario de cierre de sesión
+    function cerrarSesion() {
+        // Enviar una solicitud POST a la ruta de cierre de sesión
+        fetch('{{ route('logout') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        }).then(response => {
+            if (response.ok) {
+                // Redireccionar a la página de inicio después de cerrar sesión
+                window.location.href = '{{ url('/inicio') }}';
+            }
+        }).catch(error => {
+            console.error('Error al cerrar sesión:', error);
+        });
+    }
+</script>
+
+
 </body>
 </html>

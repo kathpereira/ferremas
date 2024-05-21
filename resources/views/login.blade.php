@@ -36,15 +36,30 @@
     </form>
     </div>
 <!--CONTAINER DE INICIO SESIÓN-->
-    <div class="form-container sign-in">
-        <form>
-            <h1>Iniciar sesión</h1>
-            <input type="correo" placeholder="Correo">
-            <input type="contrasena" placeholder="Contraseña">
-            <a href="#">Olvidaste tu contraseña?</a>
-            <button>Iniciar</button>
-        </form>
-    </div>
+<div class="form-container sign-in">
+<form method="POST" action="{{ route('login') }}">
+    @csrf <!-- Token CSRF para protección -->
+    <h1>Iniciar sesión</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <!-- Campo para el correo -->
+    <input type="email" name="correo_cli" placeholder="Correo" required>
+    <!-- Campo para la contraseña -->
+    <input type="password" name="contrasena_cli" placeholder="Contraseña" required>
+    <!-- Enlace para recuperar contraseña -->
+    <a href="#">Olvidaste tu contraseña?</a>
+    <!-- Botón para enviar el formulario -->
+    <button type="submit">Iniciar sesión</button>
+</form>
+</div>
+
 <!--IR A INICIO SESIÓN-->
     <div class="toggle-container">
         <div class="toggle">

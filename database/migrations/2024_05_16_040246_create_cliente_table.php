@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre_cli', 45)->nullable();
             $table->string('apellido_cli', 45)->nullable();
             $table->string('correo_cli', 45)->nullable();
-            $table->string('contrasena_cli', 45)->nullable();
+            $table->string('contrasena_cli', 100)->nullable();
             $table->string('direccion_cli', 100)->nullable();
             $table->bigInteger('telefono_cli')->nullable();
             $table->integer('id_telefono')->nullable()->index('fk_id_tipo_telefono_cli_idx');

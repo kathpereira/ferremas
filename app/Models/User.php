@@ -2,52 +2,54 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'cliente'; // Nombre de la tabla en la base de datos
+
+    protected $primaryKey = 'id_cliente'; // Nombre de la clave primaria
+
+    public $timestamps = false; // Desactiva los timestamps por defecto
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'correo_cli',
+        'contrasena_cli',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'contrasena_cli', // Oculta la contraseña al serializar el modelo
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Get the name of the unique identifier for the user.
      *
-     * @return array<string, string>
+     * @return string
      */
-    protected function casts(): array
+    public function getAuthIdentifierName()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return 'id_cliente';
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->id_cliente;
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->contrasena_cli;
     }
 }
-
-class Cliente extends Model
-{
-    protected $fillable = ['nombre_cli', 'apellido_cli', 'correo_cli', 'contrasena_cli', 'direccion_cli', 'telefono_cli'];
-}
-
