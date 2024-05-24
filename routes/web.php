@@ -15,6 +15,10 @@ Route::get('/cliente', function () {
     return view('cliente');
 });
 
+Route::get('/catalogo', function () {
+    return view('catalogo');
+});
+
 Route::post('/registrar-cliente', [ClienteController::class, 'registrarCliente'])->name('registrar.cliente');
 
 Route::get('/formulario-registro', function () {
