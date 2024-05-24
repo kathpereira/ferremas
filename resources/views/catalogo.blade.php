@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
   <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/style3.css') }}">
   <link rel="icon" href="/img/logo.png" type="image/x-icon">
   <title>Ferremas</title>
 </head>
@@ -41,6 +42,76 @@
             @endforeach
         </div>
     </div>
+<section class="contenedor">
+        <!-- Contenedor de elementos -->
+        <div class="contenedor-items">
+            <div class="item">
+                <span class="titulo-item">Balde pintura amarillo</span>
+                <img src="/img/baldeamarillo.jpg" alt="" class="img-item">
+                <span class="precio-item">$15.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Balde pintura azul</span>
+                <img src="/img/baldeazul.jpg" alt="" class="img-item">
+                <span class="precio-item">$25.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Tornillo</span>
+                <img src="/img/tornillo.jpg" alt="" class="img-item">
+                <span class="precio-item">$35.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Taladro</span>
+                <img src="/img/taladro.jpg" alt="" class="img-item">
+                <span class="precio-item">$18.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Martillo</span>
+                <img src="/img/martillo.jpg" alt="" class="img-item">
+                <span class="precio-item">$32.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Destornillador</span>
+                <img src="/img/destornillador.jpg" alt="" class="img-item">
+                <span class="precio-item">$18.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Llave inglesa</span>
+                <img src="/img/llaveing.jpg" alt="" class="img-item">
+                <span class="precio-item">$54.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+            <div class="item">
+                <span class="titulo-item">Alicate</span>
+                <img src="/img/alicate.jpg" alt="" class="img-item">
+                <span class="precio-item">$32.000</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+        </div>
+        <!-- Carrito de Compras -->
+        <div class="carrito" id="carrito">
+            <div class="header-carrito">
+                <h2>Tu Carrito</h2>
+            </div>
+            <div class="carrito-items">
+            </div>
+            <!-- Indica el total -->
+            <div class="carrito-total">
+                <div class="fila">
+                    <strong>Tu Total</strong>
+                    <span class="carrito-precio-total">
+                    </span>
+                </div>
+                <button class="btn-pagar">Pagar <i class="fa fa-shopping-bag" aria-hidden="true"></i></i> </button>
+            </div>
+        </div>
+    </section>
 <!--FOOTER-->
 <footer class="pie-pagina" id="footer">
     <div class="grupo-1">
@@ -73,9 +144,8 @@
         <small>&copy; 2024 <b> Ferremas </b> - Todos los Derechos Reservados.</small>
     </div>
 </footer>
-<!-- AÑADIR CARDS CON PRODUCTOS -->
 
-
+<script src="/js/carrito.js"></script>
 <!-- SCRIPT PARA CERRAR SESIÓN -->
 <script>
     // Función para enviar el formulario de cierre de sesión

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('precio')->nullable();
             $table->integer('stock')->nullable();
             $table->string('marca', 20)->nullable();
+            $table->string('marca')->nullable();
             $table->blob('imagen')->nullable();
             $table->integer('id_categoria')->nullable()->index('fk_id_categoria_producto_idx');
         });
