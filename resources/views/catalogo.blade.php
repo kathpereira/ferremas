@@ -19,6 +19,28 @@
     </div>
     <a class="btn" method="POST" action="{{ route('logout') }}"><button type="button" onclick="cerrarSesion()">Cerrar sesión</button></a>
 </header>
+<!--cards-->
+<div class="container mt-5">
+        <h1 class="mb-4">Catálogo de Productos</h1>
+        <div class="row">
+            @foreach($productos as $producto)
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        @if ($producto->imagen)
+                            <img src="{{ $producto->imagen }}" class="card-img-top" alt="{{ $producto->nombre }}">
+                        @else
+                            <img src="default-image.jpg" class="card-img-top" alt="{{ $producto->nombre }}">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $producto->nombre_prod }}</h5>
+                            <p class="card-text">{{ $producto->descripcion }}</p>
+                            <p class="card-text"><strong>Precio:</strong> ${{ $producto->precio }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 <!--FOOTER-->
 <footer class="pie-pagina" id="footer">
     <div class="grupo-1">

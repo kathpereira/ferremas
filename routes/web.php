@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CatalogoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,3 +31,5 @@ Route::get('/login', [ClienteController::class, 'mostrarFormularioInicioSesion']
 Route::post('/login', [ClienteController::class, 'iniciarSesion'])->name('iniciarSesion');
 
 Route::post('/logout', [ClienteController::class, 'cerrarSesion'])->name('logout');
+
+Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.index');
