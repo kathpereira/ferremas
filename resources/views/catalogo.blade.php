@@ -21,97 +21,40 @@
     <a class="btn" method="POST" action="{{ route('logout') }}"><button type="button" onclick="cerrarSesion()">Cerrar sesión</button></a>
 </header>
 <!--cards-->
-<div class="container mt-5">
-        <h1 class="mb-4">Catálogo de Productos</h1>
-        <div class="row">
+<section class="contenedor">
+<div class="contenedor-items">
             @foreach($productos as $producto)
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        @if ($producto->imagen)
-                            <img src="{{ $producto->imagen }}" class="card-img-top" alt="{{ $producto->nombre }}">
-                        @else
-                            <img src="default-image.jpg" class="card-img-top" alt="{{ $producto->nombre }}">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $producto->nombre_prod }}</h5>
-                            <p class="card-text">{{ $producto->descripcion }}</p>
-                            <p class="card-text"><strong>Precio:</strong> ${{ $producto->precio }}</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="item">
+            @if ($producto->imagen)
+                    <img src="{{ $producto->imagen }}" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
+                    @else
+                    <img src="default-image.jpg" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
+                    @endif
+                        <span class="titulo-item">{{ $producto->nombre_prod }}</span>
+                        <span class="precio-item">${{ $producto->precio }}</span>
+                        <button class="boton-item">Agregar al Carrito</button>
+            </div>
             @endforeach
+</div>
+    <!-- Carrito de Compras -->
+    <div class="carrito" id="carrito">
+        <div class="header-carrito">
+            <h2>Tu Carrito</h2>
+        </div>
+        <div class="carrito-items">
+            <!-- Aquí es donde se deben agregar los elementos del carrito -->
+        </div>
+        <!-- Indica el total -->
+        <div class="carrito-total">
+            <div class="fila">
+                <strong>Tu Total</strong>
+                <span class="carrito-precio-total"></span>
+            </div>
+            <button class="btn-pagar">Pagar <i class="fa fa-shopping-bag" aria-hidden="true"></i></button>
         </div>
     </div>
-<section class="contenedor">
-        <!-- Contenedor de elementos -->
-        <div class="contenedor-items">
-            <div class="item">
-                <span class="titulo-item">Balde pintura amarillo</span>
-                <img src="/img/baldeamarillo.jpg" alt="" class="img-item">
-                <span class="precio-item">$15.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Balde pintura azul</span>
-                <img src="/img/baldeazul.jpg" alt="" class="img-item">
-                <span class="precio-item">$25.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Tornillo</span>
-                <img src="/img/tornillo.jpg" alt="" class="img-item">
-                <span class="precio-item">$35.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Taladro</span>
-                <img src="/img/taladro.jpg" alt="" class="img-item">
-                <span class="precio-item">$18.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Martillo</span>
-                <img src="/img/martillo.jpg" alt="" class="img-item">
-                <span class="precio-item">$32.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Destornillador</span>
-                <img src="/img/destornillador.jpg" alt="" class="img-item">
-                <span class="precio-item">$18.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Llave inglesa</span>
-                <img src="/img/llaveing.jpg" alt="" class="img-item">
-                <span class="precio-item">$54.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            <div class="item">
-                <span class="titulo-item">Alicate</span>
-                <img src="/img/alicate.jpg" alt="" class="img-item">
-                <span class="precio-item">$32.000</span>
-                <button class="boton-item">Agregar al Carrito</button>
-            </div>
-        </div>
-        <!-- Carrito de Compras -->
-        <div class="carrito" id="carrito">
-            <div class="header-carrito">
-                <h2>Tu Carrito</h2>
-            </div>
-            <div class="carrito-items">
-            </div>
-            <!-- Indica el total -->
-            <div class="carrito-total">
-                <div class="fila">
-                    <strong>Tu Total</strong>
-                    <span class="carrito-precio-total">
-                    </span>
-                </div>
-                <button class="btn-pagar">Pagar <i class="fa fa-shopping-bag" aria-hidden="true"></i></i> </button>
-            </div>
-        </div>
-    </section>
+</section>
+
 <!--FOOTER-->
 <footer class="pie-pagina" id="footer">
     <div class="grupo-1">
