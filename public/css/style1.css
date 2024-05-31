@@ -5,6 +5,7 @@
     align-items:flex-start;
     height: 85px;
     padding: 5px 10%;
+    cursor:pointer;
 }
 
 .header .logo{
@@ -137,4 +138,26 @@
 #foto3 {
     height: 600px;
     width: 700px;
+}
+
+
+#btn-trabajador{
+    font-weight: 700;
+    color: #171717;
+    padding: 5px;
+    background: #ffffff;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    margin-left: -100px;
+    margin-right: 50px;
+    height: 45px;
+    margin-top:5px;
+}
+
+#btn-trabajador button:hover{
+    background-color: #fff1bd;
+    color: #FFB13A;
+    transform: scale(1.1);
 }

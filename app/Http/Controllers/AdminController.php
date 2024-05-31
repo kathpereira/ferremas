@@ -5,16 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
+use Illuminate\Validation\ValidationException; // Agrega esta línea
 
 class AdminController extends Controller
 {
-    // Función para mostrar el formulario de inicio de sesión
     public function mostrarFormularioInicioSesion()
     {
-        return view('login'); // Asegúrate de tener una vista 'login' configurada
+        return view('adminLogin');
     }
     
-    // Función para iniciar sesión
     public function iniciarSesion(Request $request)
     {
         // Validar los datos del formulario
@@ -22,34 +21,31 @@ class AdminController extends Controller
             'correo_admin' => 'required|email',
             'contrasena_admin' => 'required',
         ]);
-
-        // Obtener las credenciales del formulario
-        $credentials = $request->only('correo_admin', 'contrasena_admin');
-        
-        // Buscar al administrador por su correo
-        $admin = Admin::where('correo_admin', $credentials['correo_admin'])->first();
-
+    
+        // Obtener el administrador por su correo
+        $admin = Admin::where('correo_admin', $request->correo_admin)->first();
+    
         // Si no se encuentra al administrador, mostrar un mensaje de error
         if (!$admin) {
             return back()->withErrors([
                 'correo_admin' => 'Las credenciales proporcionadas son incorrectas.',
-            ])->withInput(); // Devolver los valores del formulario
+            ])->withInput();
         }
-
-        // Verificar la contraseña
-        if ($credentials['contrasena_admin'] === $admin->contrasena_admin) {
+    
+        // Verificar la contraseña sin encriptar
+        if ($request->contrasena_admin === $admin->contrasena_admin) {
             // Autenticación exitosa
-            Auth::login($admin);
-            return redirect()->intended('/admin'); // Redireccionar al dashboard del administrador
+            // Guardar la información del administrador en la sesión
+            session()->put('admin_id', $admin->id_administrador);
+            session()->put('admin_nombre', $admin->usuario_admin); // Guardar el nombre del administrador en la sesión
+            return redirect('/adminInicio'); // Redireccionar al dashboard del administrador
         } else {
             // Autenticación fallida
             return back()->withErrors([
                 'contrasena_admin' => 'La contraseña es incorrecta.',
-            ])->withInput(); // Devolver los valores del formulario
-        }        
+            ])->withInput();
+        }
     }
-
-    // Función para cerrar sesión
     public function cerrarSesion(Request $request)
     {
         Auth::logout(); // Cerrar la sesión actual del administrador
@@ -82,6 +78,6 @@ class AdminController extends Controller
         ]);
 
         // Redirecciona a donde desees después de crear el bodeguero
-        return redirect()->route('adminBod')->with('success', 'Bodeguero creado exitosamente.');
+        return redirect()->route('/adminBod')->with('success', 'Bodeguero creado exitosamente.');
     }
 }
