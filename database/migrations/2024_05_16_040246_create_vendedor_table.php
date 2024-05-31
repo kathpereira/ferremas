@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('correo_vendedor', 45)->nullable();
             $table->string('contrasena_vendedor', 45)->nullable();
             $table->integer('id_sucursal')->nullable()->index('fk_id_sucursal_vendedor_idx');
+            $table->timestamps();
         });
     }
 
