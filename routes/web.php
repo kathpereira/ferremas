@@ -5,7 +5,6 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\BodegueroController;
-use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\AdminController;
 
