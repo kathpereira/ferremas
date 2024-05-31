@@ -1,18 +1,19 @@
 <?php
-namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+   namespace App\Models;
 
-class Categoria extends Model
-{
-    protected $table = 'categoria';
-    protected $primaryKey = 'id_categoria';
-    public $timestamps = false;
+   use Illuminate\Database\Eloquent\Model;
 
-    protected $fillable = ['nombre_cat'];
+   class Categoria extends Model
+   {
+       protected $table = 'categoria';
+       protected $primaryKey = 'id_categoria';
+       public $timestamps = false;
 
-    public function productos()
-    {
-        return $this->hasMany(Producto::class, 'id_categoria');
-    }
-}
+       protected $fillable = ['nombre_cat'];
+
+       public function productos()
+       {
+           return $this->hasMany(Producto::class, 'id_categoria');
+       }
+   }
