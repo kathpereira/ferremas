@@ -41,11 +41,19 @@ Route::get('/adminInicio', function () {
     return view('adminInicio');
 });
 
+Route::get('/adminLogin', function () {
+    return view('adminLogin');
+});
+
 Route::post('/registrar-cliente', [ClienteController::class, 'registrarCliente'])->name('registrar.cliente');
 
 Route::get('/formulario-registro', function () {
     return view('login');
 })->name('formulario.registro');
+
+Route::get('/admin.iniciar_sesion', function () {
+    return view('adminLogin');
+})->name('admin.iniciar_sesion');
 
 Route::get('/login', [ClienteController::class, 'mostrarFormularioInicioSesion'])->name('login');
 
@@ -63,7 +71,7 @@ Route::post('/contador', [ContadorController::class, 'store'])->name('contador.s
 
 Route::get('login', [AdminController::class, 'mostrarFormularioInicioSesion'])->name('login');
 
-Route::post('/admin/login', [AdminController::class, 'iniciarSesion'])->name('admin.iniciar_sesion');
+Route::post('/adminLogin', [AdminController::class, 'iniciarSesion'])->name('admin.iniciar_sesion');
 
 // Ruta para cerrar sesión del administrador
 Route::post('/adminInicio/logout', [AdminController::class, 'cerrarSesion'])->name('admin.cerrar_sesion');

@@ -24,6 +24,6 @@ class BodegueroController extends Controller
         ]);
 
         // Redirecciona a donde desees después de crear el bodeguero
-        return redirect()->route('adminBod')->with('success', 'Bodeguero creado exitosamente.');
+        return redirect()->route('/adminBod')->with('success', 'Bodeguero creado exitosamente.');
     }
 }

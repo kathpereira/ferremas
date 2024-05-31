@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-md-6 order-3 order-md-1" style=""> <img class="img-fluid d-block" src="/img/admin.png" style=""> </div>
             <div class="col-md-5 col-8 d-flex flex-column justify-content-center p-3 order-1 order-md-2" style="">
-              <h3>Admin</h3>
+              <h3>Admin: {{ session('admin_nombre')}} </h3>
               <p>Encargado de sistema</p>
             </div>
           </div>
