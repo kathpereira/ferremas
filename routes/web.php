@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\VendedorController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,3 +34,5 @@ Route::post('/login', [ClienteController::class, 'iniciarSesion'])->name('inicia
 Route::post('/logout', [ClienteController::class, 'cerrarSesion'])->name('logout');
 
 Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.index');
+
+Route::get('/vendedor', [VendedorController::class, 'index']);
