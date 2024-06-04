@@ -18,6 +18,10 @@ Route::get('/bodeguero', [BodegueroController::class, 'index'])->name('bodeguero
 Route::post('/bodegueros', [BodegueroController::class, 'store'])->name('bodegueros.store');
 Route::post('/bodeguero/add', [BodegueroController::class, 'add'])->name('bodeguero.add');  // Para sumar productos
 Route::post('/bodeguero/remove', [BodegueroController::class, 'remove'])->name('bodeguero.remove');  // Para eliminar productos
+Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
+Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
+
+
 
 // Otras vistas estáticas
 Route::get('/inicio', function () {

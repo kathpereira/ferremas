@@ -12,6 +12,9 @@
 
     <form method="GET" action="{{ route('bodeguero.index') }}" class="form-inline mb-3">
         <div class="form-group mr-3">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#informeModal">Generar Informe</button>
+        </div>
+        <div class="form-group mr-3">
             <label for="categoria" class="mr-2">Categoría:</label>
             <select name="categoria" id="categoria" class="form-control">
                 <option value="">Todas</option>
@@ -73,4 +76,57 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal para Generar Informe -->
+<div class="modal fade" id="informeModal" tabindex="-1" role="dialog" aria-labelledby="informeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="informeForm" action="{{ route('bodeguero.generateReport') }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="informeModalLabel">Generar Informe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="formato">Formato</label>
+                        <select name="formato" id="formato" class="form-control" required>
+                            <option value="">Seleccione un formato</option>
+                            <option value="PDF">PDF</option>
+                            <option value="Word">Word</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha de Envío</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="informe">Informe</label>
+                        <textarea name="informe" id="informe" class="form-control" rows="4" placeholder="Escribe el informe aquí..." required></textarea>
+                    </div>
+                    <div class="alert alert-danger d-none" id="formError">Debe completar todos los campos.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Enviar Informe</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('informeForm').addEventListener('submit', function(event) {
+    const formato = document.getElementById('formato').value;
+    const fecha = document.getElementById('fecha').value;
+    const informe = document.getElementById('informe').value;
+    if (!formato || !fecha || !informe) {
+        event.preventDefault();  // Previene el envío del formulario
+        document.getElementById('formError').classList.remove('d-none');  // Muestra el mensaje de error
+    }
+});
+</script>
+
 @endsection
