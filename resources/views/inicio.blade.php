@@ -28,9 +28,9 @@
         <div class="btn-group" >
             <button id="btn-trabajador" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Trabajador</button>
             <div class="dropdown-menu"> 
-            <a class="dropdown-item bg-light" href="#">Bodeguero</a>
+            <a class="dropdown-item bg-light" href="{{ url('/bodegueroLogin') }}">Bodeguero</a>
             <a class="dropdown-item bg-light" href="#">Vendedor</a>
-            <a class="dropdown-item bg-light" href="#">Contador</a>
+            <a class="dropdown-item bg-light" href="{{ url('/contadorLogin') }}">Contador</a>
             <a class="dropdown-item bg-light" href="{{ url('/adminLogin') }}">Admin</a>
         </div>
         <a class="btn" href="{{ url('/login') }}"><button>Regístrate</button></a>
