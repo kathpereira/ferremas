@@ -29,7 +29,7 @@
             <label for="nombre" class="mr-2">Buscar:</label>
             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre del producto" value="{{ request('nombre') }}">
             <button type="submit" class="btn btn-primary ml-2">
-                <i class="fas fa-search"></i>
+                <i class="fa fa-search" aria-hidden="true"></i>
             </button>
         </div>
     </form>

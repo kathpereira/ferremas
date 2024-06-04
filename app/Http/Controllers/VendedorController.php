@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vendedor;
 use Illuminate\Http\Request;
 use App\Models\Producto;
 
@@ -39,5 +40,3 @@ class VendedorController extends Controller
         return redirect()->route('/adminVen')->with('success', 'Vendedor creado exitosamente.');
     }
 }
-use App\Models\Vendedor;
-

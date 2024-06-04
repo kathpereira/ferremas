@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\User;
 
-class Bodeguero extends Model
+
+class Bodeguero extends Model 
 {
     protected $table = 'bodeguero';
 

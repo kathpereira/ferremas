@@ -22,7 +22,7 @@
 
 <div class="container" id="container">
 <div class="form-container sign-in">
-    <form action="{{ route('admin.iniciar_sesion') }}" method="POST">
+    <form action="{{ route('contador.iniciar_sesion') }}" method="POST">
     @csrf <!-- Token CSRF para protección -->
     <h1>Iniciar sesión</h1>
     @if ($errors->any())
@@ -34,8 +34,8 @@
             </ul>
         </div>
     @endif
-        <input type="email" name="correo_admin" placeholder="Correo"> 
-        <input type="password" name="contrasena_admin" placeholder="Contraseña">
+        <input type="email" name="correo_cont" placeholder="Correo"> 
+        <input type="password" name="contrasena_cont" placeholder="Contraseña">
         <button type="submit">Iniciar Sesión</button>
     </form>
 </div>

@@ -44,6 +44,16 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'bodeguero' => [
+            'driver' => 'session',
+            'provider' => 'bodeguero', 
+            ],
+
+        'contador' => [
+            'driver' => 'session',
+            'provider' => 'contador', 
+            ],
     ],
 
     /*
@@ -71,7 +81,17 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
-        ]
+        ],
+
+        'bodeguero' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Bodeguero::class,
+        ],
+
+        'contador' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Contador::class, 
+        ],
     
 
         // 'users' => [

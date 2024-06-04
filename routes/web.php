@@ -12,12 +12,6 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Rutas para Bodeguero
-Route::get('/bodeguero', [BodegueroController::class, 'index'])->name('bodeguero.index');
-Route::post('/bodegueros', [BodegueroController::class, 'store'])->name('bodegueros.store');
-Route::post('/bodeguero/add', [BodegueroController::class, 'add'])->name('bodeguero.add');  // Para sumar productos
-Route::post('/bodeguero/remove', [BodegueroController::class, 'remove'])->name('bodeguero.remove');  // Para eliminar productos
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 
@@ -49,6 +43,18 @@ Route::get('/adminLogin', function () {
     return view('adminLogin');
 });
 
+Route::get('/bodegueroLogin', function () {
+    return view('bodegueroLogin');
+});
+
+Route::get('/contadorLogin', function () {
+    return view('contadorLogin');
+});
+
+Route::get('/contador', function () {
+    return view('contador');
+});
+
 // Rutas para Cliente
 Route::post('/registrar-cliente', [ClienteController::class, 'registrarCliente'])->name('registrar.cliente');
 Route::get('/formulario-registro', function () {
@@ -67,6 +73,7 @@ Route::post('/vendedores', [VendedorController::class, 'store'])->name('vendedor
 
 // Rutas para Contador
 Route::post('/contador', [ContadorController::class, 'store'])->name('contador.store');
+Route::post('/contador', [ContadorController::class, 'iniciarSesion'])->name('contador.iniciar_sesion');
 
 // Rutas para Admin
 Route::get('login', [AdminController::class, 'mostrarFormularioInicioSesion'])->name('login');
@@ -75,6 +82,12 @@ Route::post('/adminInicio/logout', [AdminController::class, 'cerrarSesion'])->na
 Route::get('/adminBod/crear_bodeguero', [AdminController::class, 'mostrarFormularioCrearBodeguero'])->name('admin.mostrar_formulario_crear_bodeguero');
 Route::post('/adminBod/crear_bodeguero', [AdminController::class, 'crearBodeguero'])->name('admin.crear_bodeguero');
 
+// Rutas para bodeguero
+Route::post('/bodeguero', [BodegueroController::class, 'iniciarSesion'])->name('bodeguero.iniciar_sesion');
+Route::get('/bodeguero-index', [BodegueroController::class, 'index'])->name('bodeguero.index');
+Route::post('/bodegueros', [BodegueroController::class, 'store'])->name('bodegueros.store');
+Route::post('/bodeguero/add', [BodegueroController::class, 'add'])->name('bodeguero.add');  // Para sumar productos
+Route::post('/bodeguero/remove', [BodegueroController::class, 'remove'])->name('bodeguero.remove');  // Para eliminar productos
 
 
 

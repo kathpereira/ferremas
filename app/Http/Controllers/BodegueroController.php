@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bodeguero;
+use App\Models\Categoria;  
+use App\Models\Producto;  
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use PhpOffice\PhpWord\PhpWord;
@@ -10,6 +13,8 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Categoria;
 use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class BodegueroController extends Controller
 {
@@ -110,5 +115,44 @@ class BodegueroController extends Controller
             return redirect()->route('bodeguero.index')->with('success', 'Stock actualizado exitosamente.');
         }
         return redirect()->route('bodeguero.index')->with('error', 'Producto no encontrado.');
+    }
+
+    public function iniciarSesion(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'correo_bod' => 'required|email',
+            'contrasena_bod' => 'required',
+        ]);
+    
+        $bodeguero = Bodeguero::where('correo_bod', $request->correo_bod)->first();
+    
+        if (!$bodeguero) {
+            return back()->withErrors([
+                'correo_bod' => 'Las credenciales proporcionadas son incorrectas.',
+            ])->withInput();
+        }  
+
+                // Verificar la contraseña sin encriptar
+                if ($request->contrasena_bod === $bodeguero->contrasena_bod) {
+                    // Autenticación exitosa
+                    // Guardar la información del bodeguero en la sesión
+                    session()->put('id_bodeguero', $bodeguero->id_bodeguero);
+                    session()->put('nombre_bod', $bodeguero->nombre_bod); 
+                    return redirect('/bodeguero-index'); 
+                } else {
+                    // Autenticación fallida
+                    return back()->withErrors([
+                        'contrasena_bod' => 'La contraseña es incorrecta.',
+                    ])->withInput();
+                }
+    }
+    
+    public function cerrarSesion(Request $request)
+    {
+        Auth::guard('bodeguero')->logout(); // Cerrar la sesión actual del bodeguero
+        $request->session()->invalidate(); // Invalidar la sesión
+        $request->session()->regenerateToken(); // Regenerar el token de sesión
+        return redirect('/inicio'); // Redirigir a la página de inicio
     }
 }
