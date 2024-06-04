@@ -5,8 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Vendedor;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+
 class VendedorController extends Controller
 {
+    public function index()
+    {
+        $productos = Producto::orderBy('id_producto', 'desc')
+                     ->orderBy('descripcion', 'desc')
+                     ->take(5)
+                     ->get();
+        return view('vendedor', compact('productos'));
+    }
 
     protected $table = 'vendedor';
     public $timestamps = false;
@@ -31,4 +40,3 @@ class VendedorController extends Controller
         return redirect()->route('/adminVen')->with('success', 'Vendedor creado exitosamente.');
     }
 }
-
