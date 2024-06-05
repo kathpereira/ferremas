@@ -6,6 +6,11 @@ use App\Models\Bodeguero;
 use App\Models\Categoria;  
 use App\Models\Producto;  
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -32,28 +37,56 @@ class BodegueroController extends Controller
         return view('bodeguero', ['categorias' => $categorias, 'productos' => $productos]);
     }
 
-    public function store(Request $request)
+    public function generateReport(Request $request)
     {
-        // Validar los datos del formulario
         $request->validate([
-            'nombre' => 'required',
-            'correo_bod' => 'required|email|unique:bodeguero',
-            'contrasena' => 'required',
+            'formato' => 'required',
+            'fecha' => 'required',
+            'informe' => 'required',
         ]);
 
-        // Crea un nuevo bodeguero
-        Bodeguero::create([
-            'nombre_bod' => $request->nombre,
-            'correo_bod' => $request->correo_bod,
-            'contrasena_bod' => $request->contrasena,
-        ]);
+        $formato = $request->input('formato');
+        $fecha = $request->input('fecha');
+        $informe = $request->input('informe');
+        $filename = "informe_" . date('Ymd_His');
 
-        // Redirecciona después de crear el bodeguero
-        return redirect()->route('bodeguero.index')->with('success', 'Bodeguero creado exitosamente.');
+        switch ($formato) {
+            case 'PDF':
+                $filename .= ".pdf";
+                $options = new Options();
+                $options->set('defaultFont', 'Arial');
+                $dompdf = new Dompdf($options);
+                $html = "<h1>Informe</h1><p>$informe</p><p>Fecha de Envío: $fecha</p>";
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A4', 'portrait');
+                $dompdf->render();
+                return $dompdf->stream($filename, ['Attachment' => true]);
+
+            case 'Word':
+                $filename .= ".docx";
+                $phpWord = new PhpWord();
+                $section = $phpWord->addSection();
+                $section->addText("Informe", array('bold' => true, 'size' => 16));
+                $section->addText($informe);
+                $section->addText("Fecha de Envío: $fecha");
+
+                $tempFile = tempnam(sys_get_temp_dir(), 'PHPWord') . '.docx';
+                $writer = IOFactory::createWriter($phpWord, 'Word2007');
+                $writer->save($tempFile);
+
+                return response()->download($tempFile, $filename)->deleteFileAfterSend(true);
+        }
+
+        return redirect()->back()->with('error', 'Formato no soportado.');
     }
 
     public function add(Request $request)
     {
+        $request->validate([
+            'id_producto' => 'required|integer',
+            'cantidad' => 'required|integer|min:1',
+        ]);
+
         $producto = Producto::find($request->id_producto);
         if ($producto) {
             $producto->stock += $request->cantidad;
@@ -65,10 +98,17 @@ class BodegueroController extends Controller
 
     public function remove(Request $request)
     {
+        $request->validate([
+            'id_producto' => 'required|integer',
+            'cantidad' => 'required|integer|min:1',
+        ]);
+
         $producto = Producto::find($request->id_producto);
         if ($producto) {
             $producto->stock -= $request->cantidad;
-            if ($producto->stock < 0) $producto->stock = 0;  // Asegurarse de que el stock no sea negativo
+            if ($producto->stock < 0) {
+                $producto->stock = 0;  // Asegurarse de que el stock no sea negativo
+            }
             $producto->save();
             return redirect()->route('bodeguero.index')->with('success', 'Stock actualizado exitosamente.');
         }
@@ -114,4 +154,3 @@ class BodegueroController extends Controller
         return redirect('/inicio'); // Redirigir a la página de inicio
     }
 }
-

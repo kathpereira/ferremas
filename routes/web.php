@@ -12,6 +12,10 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
+Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
+
+
 
 // Otras vistas estáticas
 Route::get('/inicio', function () {
@@ -77,7 +81,6 @@ Route::post('/contador', [ContadorController::class, 'store'])->name('contador.s
 Route::post('/contador', [ContadorController::class, 'iniciarSesion'])->name('contador.iniciar_sesion');
 
 // Rutas para Admin
-Route::get('login', [AdminController::class, 'mostrarFormularioInicioSesion'])->name('login');
 Route::post('/adminLogin', [AdminController::class, 'iniciarSesion'])->name('admin.iniciar_sesion');
 Route::post('/adminInicio/logout', [AdminController::class, 'cerrarSesion'])->name('admin.cerrar_sesion');
 Route::get('/adminBod/crear_bodeguero', [AdminController::class, 'mostrarFormularioCrearBodeguero'])->name('admin.mostrar_formulario_crear_bodeguero');

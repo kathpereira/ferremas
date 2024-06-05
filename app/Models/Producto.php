@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +10,7 @@ class Producto extends Model
     use HasFactory;
 
     protected $table = 'producto';
-    protected $primaryKey = 'id_producto'; // Esto asegura que Laravel use 'id_producto' como la clave primaria
+    protected $primaryKey = 'id_producto';
     public $timestamps = false;
 
     protected $fillable = [
@@ -21,4 +22,3 @@ class Producto extends Model
         return $this->belongsTo(Categoria::class, 'id_categoria');
     }
 }
-
