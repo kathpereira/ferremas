@@ -7,6 +7,7 @@ use App\Http\Controllers\VendedorController;
 use App\Http\Controllers\BodegueroController;
 use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TransbankController;
 
 // Página de bienvenida
 Route::get('/', function () {
@@ -98,9 +99,6 @@ Route::get('/bodeguero', [BodegueroController::class, 'index'])->name('bodeguero
 Route::post('/bodeguero/add', [BodegueroController::class, 'add'])->name('bodeguero.add');  // Para sumar productos
 Route::post('/bodeguero/remove', [BodegueroController::class, 'remove'])->name('bodeguero.remove');  // Para eliminar productos
 
-
-
-
-
-
-
+//Rutas Transbank
+Route::post('/pagar', [TransbankController::class, 'createTransaction'])->name('transbank.create');
+Route::post('/callback', [TransbankController::class, 'callback'])->name('transbank.callback');
