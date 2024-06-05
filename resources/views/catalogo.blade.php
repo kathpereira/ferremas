@@ -2,14 +2,14 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
-  <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/style3.css') }}">
-  <link rel="icon" href="/img/logo.png" type="image/x-icon">
-  <title>Ferremas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+    <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style3.css') }}">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
+    <title>Ferremas</title>
 </head>
 
 <body style="" class="">
@@ -23,18 +23,18 @@
 <!--cards-->
 <section class="contenedor">
 <div class="contenedor-items">
-            @foreach($productos as $producto)
-            <div class="item">
-            @if ($producto->imagen)
-                    <img src="{{ $producto->imagen }}" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
-                    @else
-                    <img src="default-image.jpg" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
-                    @endif
-                        <span class="titulo-item">{{ $producto->nombre_prod }}</span>
-                        <span class="precio-item">${{ $producto->precio }}</span>
-                        <button class="boton-item">Agregar al Carrito</button>
-            </div>
-            @endforeach
+    @foreach($productos as $producto)
+    <div class="item">
+        @if ($producto->imagen)
+            <img src="{{ $producto->imagen }}" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
+        @else
+            <img src="default-image.jpg" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
+        @endif
+        <span class="titulo-item">{{ $producto->nombre_prod }}</span>
+        <span class="precio-item">${{ number_format($producto->precio, 0, ',', '.') }}</span>
+        <button class="boton-item">Agregar al Carrito</button>
+    </div>
+    @endforeach
 </div>
     <!-- Carrito de Compras -->
     <div class="carrito" id="carrito">
@@ -48,9 +48,14 @@
         <div class="carrito-total">
             <div class="fila">
                 <strong>Tu Total</strong>
-                <span class="carrito-precio-total"></span>
+                <span class="carrito-precio-total">$0</span>
             </div>
-            <button class="btn-pagar">Pagar <i class="fa fa-shopping-bag" aria-hidden="true"></i></button>
+            <!-- Formulario para el pago con Transbank -->
+            <form id="form-pagar" action="{{ route('transbank.create') }}" method="POST">
+                @csrf
+                <input type="hidden" name="amount" id="total-amount">
+                <button type="submit" class="btn-pagar" onclick="actualizarTotal()"> Pagar <i class="fa fa-shopping-bag" aria-hidden="true"></i></button>
+            </form>
         </div>
     </div>
 </section>
@@ -74,12 +79,9 @@
         <div class="box">
             <h2>SIGUENOS</h2>
             <div class="red-social">
-                <a href="#" class="insta"><img src="/img/instagram.png" alt="logo instagram"
-                        class="redes"></a>
-                <a href="#" class="face"><img src="/img/facebook.png" alt="logo facebook"
-                        class="redes"></a>
-                <a href="#" class="twitter"><img src="/img/twitter.png" alt="logo twitter"
-                        class="redes"></a>
+                <a href="#" class="insta"><img src="/img/instagram.png" alt="logo instagram" class="redes"></a>
+                <a href="#" class="face"><img src="/img/facebook.png" alt="logo facebook" class="redes"></a>
+                <a href="#" class="twitter"><img src="/img/twitter.png" alt="logo twitter" class="redes"></a>
             </div>
         </div>
     </div>
@@ -107,6 +109,14 @@
         }).catch(error => {
             console.error('Error al cerrar sesión:', error);
         });
+    }
+
+    // Función para actualizar el total en el formulario antes de enviar
+    function actualizarTotal() {
+        var totalElement = document.querySelector('.carrito-precio-total');
+        var total = totalElement.innerText.replace('$', '').replace('.', '').replace(',', '').trim();
+        total = parseInt(total, 10); // Convertir a número entero
+        document.getElementById('total-amount').value = total;
     }
 </script>
 </body>
