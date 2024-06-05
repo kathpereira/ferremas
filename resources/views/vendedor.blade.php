@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+    <link rel="stylesheet" href="{{ asset('css/style2.css') }}">
+    <link rel="icon" href="/img/logo.png" type="image/x-icon">
     <title>Vendedor</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-        }
         .container {
             text-align: center;
             border: 1px solid #ccc;
@@ -28,6 +25,13 @@
         }
     </style>
 </head>
+
+<header class="header">
+        <div class="logo">
+            <img src="/img/logo.png" alt="Logo de la marca">
+        </div>
+        <a class="btn" href="{{ url('/inicio') }}"><button>Cerrar sesión</button></a>
+</header>
 <body>
     <div class="container">
         <h1>Últimos 5 Productos</h1>

@@ -54,6 +54,11 @@ return [
             'driver' => 'session',
             'provider' => 'contador', 
             ],
+            
+        'vendedor' => [
+            'driver' => 'session',
+            'provider' => 'vendedor', 
+        ],
     ],
 
     /*
@@ -91,6 +96,11 @@ return [
         'contador' => [
             'driver' => 'eloquent',
             'model' => App\Models\Contador::class, 
+        ],
+
+        'vendedor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Vendedor::class, 
         ],
     
 
