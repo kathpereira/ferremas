@@ -29,7 +29,7 @@
             <button id="btn-trabajador" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Trabajador</button>
             <div class="dropdown-menu"> 
             <a class="dropdown-item bg-light" href="{{ url('/bodegueroLogin') }}">Bodeguero</a>
-            <a class="dropdown-item bg-light" href="{{ url('/bodegueroLogin') }}">Vendedor</a>
+            <a class="dropdown-item bg-light" href="{{ url('/vendedorLogin') }}">Vendedor</a>
             <a class="dropdown-item bg-light" href="{{ url('/contadorLogin') }}">Contador</a>
             <a class="dropdown-item bg-light" href="{{ url('/adminLogin') }}">Admin</a>
         </div>

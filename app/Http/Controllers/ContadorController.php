@@ -3,6 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Contador;
 use Illuminate\Http\Request;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use PhpOffice\PhpWord\Shared\ZipArchive;
 
 class ContadorController extends Controller
 {
@@ -23,7 +28,7 @@ class ContadorController extends Controller
         ]);
 
         // Redirecciona a donde desees después de crear el contador
-        return redirect()->route('adminCon')->with('success', 'Contador creado exitosamente.');
+        return redirect()->route('/adminCon')->with('success', 'Contador creado exitosamente.');
     }
 
     public function iniciarSesion(Request $request)
@@ -56,4 +61,48 @@ class ContadorController extends Controller
             ])->withInput();
         }
     }
+
+    public function generateReport(Request $request)
+    {
+        $request->validate([
+            'formato' => 'required',
+            'fecha' => 'required',
+            'informe' => 'required',
+        ]);
+
+        $formato = $request->input('formato');
+        $fecha = $request->input('fecha');
+        $informe = $request->input('informe');
+        $filename = "informe_" . date('Ymd_His');
+
+        switch ($formato) {
+            case 'PDF':
+                $filename .= ".pdf";
+                $options = new Options();
+                $options->set('defaultFont', 'Arial');
+                $dompdf = new Dompdf($options);
+                $html = "<h1>Informe</h1><p>$informe</p><p>Fecha de Envío: $fecha</p>";
+                $dompdf->loadHtml($html);
+                $dompdf->setPaper('A4', 'portrait');
+                $dompdf->render();
+                return $dompdf->stream($filename, ['Attachment' => true]);
+
+            case 'Word':
+                $filename .= ".docx";
+                $phpWord = new PhpWord();
+                $section = $phpWord->addSection();
+                $section->addText("Informe", array('bold' => true, 'size' => 16));
+                $section->addText($informe);
+                $section->addText("Fecha de Envío: $fecha");
+
+                $tempFile = tempnam(sys_get_temp_dir(), 'PHPWord') . '.docx';
+                $writer = IOFactory::createWriter($phpWord, 'Word2007');
+                $writer->save($tempFile);
+
+                return response()->download($tempFile, $filename)->deleteFileAfterSend(true);
+        }
+
+        return redirect()->back()->with('error', 'Formato no soportado.');
+    }
+
 }

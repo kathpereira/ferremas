@@ -115,6 +115,26 @@ class BodegueroController extends Controller
         return redirect()->route('bodeguero.index')->with('error', 'Producto no encontrado.');
     }
 
+    public function store(Request $request)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'nombre_bod' => 'required',
+            'correo_bod' => 'required|email|unique:bodeguero',
+            'contrasena_bod' => 'required',
+        ]);
+    
+        // Crea un nuevo bodeguero
+        Bodeguero::create([
+            'nombre_bod' => $request->nombre_bod,
+            'correo_bod' => $request->correo_bod,
+            'contrasena_bod' => $request->contrasena_bod,
+        ]);
+    
+        // Redirecciona a donde desees después de crear el bodeguero
+        return redirect()->route('admin.bodeguero')->with('success', 'Bodeguero creado exitosamente.');
+    }    
+
     public function iniciarSesion(Request $request)
     {
         // Validar los datos del formulario
@@ -137,7 +157,7 @@ class BodegueroController extends Controller
                     // Guardar la información del bodeguero en la sesión
                     session()->put('id_bodeguero', $bodeguero->id_bodeguero);
                     session()->put('nombre_bod', $bodeguero->nombre_bod); 
-                    return redirect('/bodeguero-index'); 
+                    return redirect('/bodeguero'); 
                 } else {
                     // Autenticación fallida
                     return back()->withErrors([

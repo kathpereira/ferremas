@@ -46,38 +46,4 @@ class AdminController extends Controller
             ])->withInput();
         }
     }
-    public function cerrarSesion(Request $request)
-    {
-        Auth::logout(); // Cerrar la sesión actual del administrador
-        $request->session()->invalidate(); // Invalidar la sesión
-        $request->session()->regenerateToken(); // Regenerar el token de sesión
-        return redirect('/inicio'); // Redirigir a la página de inicio
-    }
-
-    public function mostrarFormularioCrearBodeguero()
-    {
-        return view('adminBod');
-    }
-
-    public function crearBodeguero(Request $request)
-    {
-        // Validar los datos del formulario
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:bodeguero|max:255',
-            'contrasena' => 'required|string|min:6',
-            // Puedes agregar aquí más reglas de validación según tus necesidades
-        ]);
-
-        // Crea un nuevo bodeguero
-        Bodeguero::create([
-            'nombre_bod' => $request->nombre,
-            'correo_bod' => $request->correo,
-            'contrasena_bod' => $request->contrasena,
-            // Agrega aquí los demás campos del bodeguero
-        ]);
-
-        // Redirecciona a donde desees después de crear el bodeguero
-        return redirect()->route('/adminBod')->with('success', 'Bodeguero creado exitosamente.');
-    }
 }

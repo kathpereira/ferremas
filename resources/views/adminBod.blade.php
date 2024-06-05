@@ -27,9 +27,9 @@
 <div class="form-container sign-in">
     <form action="{{ route('bodegueros.store') }}" method="POST">
         @csrf
-        <input type="text" name="nombre" placeholder="Nombre">
+        <input type="text" name="nombre_bod" placeholder="Nombre">
         <input type="email" name="correo_bod" placeholder="Correo"> 
-        <input type="password" name="contrasena" placeholder="Contraseña">
+        <input type="password" name="contrasena_bod" placeholder="Contraseña">
         <button type="submit">Registrar</button>
     </form>
 </div>

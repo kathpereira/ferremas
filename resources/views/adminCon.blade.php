@@ -25,7 +25,7 @@
 <div class="container" id="container">
     <!--CONTAINER REGISTRO CONTADOR-->
     <div class="form-container sign-in">
-    <form action="{{ route('contador.store') }}" method="POST">
+    <form action="{{ route('contadores.store') }}" method="POST">
         @csrf
         <input type="text" name="nombre_cont" placeholder="Nombre">
         <input type="email" name="correo_cont" placeholder="Correo">
