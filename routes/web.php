@@ -51,6 +51,10 @@ Route::get('/contador', function () {
     return view('contador');
 });
 
+Route::get('/vendedorLogin', function () {
+    return view('vendedorLogin');
+});
+
 // Rutas para Cliente
 Route::post('/registrar-cliente', [ClienteController::class, 'registrarCliente'])->name('registrar.cliente');
 Route::get('/formulario-registro', function () {
@@ -66,6 +70,7 @@ Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.in
 // Rutas para Vendedor
 Route::get('/vendedor', [VendedorController::class, 'index']);
 Route::post('/vendedores', [VendedorController::class, 'store'])->name('vendedores.store');
+Route::post('/vendedor', [VendedorController::class, 'iniciarSesion'])->name('vendedor.iniciar_sesion');
 
 // Rutas para Contador
 Route::post('/contador', [ContadorController::class, 'store'])->name('contador.store');
