@@ -28,7 +28,7 @@ class ContadorController extends Controller
         ]);
 
         // Redirecciona a donde desees después de crear el contador
-        return redirect()->route('/adminCon')->with('success', 'Contador creado exitosamente.');
+        return redirect()->route('adminCon')->with('success', 'Contador creado exitosamente.');
     }
 
     public function iniciarSesion(Request $request)
