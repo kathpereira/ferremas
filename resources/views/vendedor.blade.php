@@ -52,5 +52,37 @@
             </tbody>
         </table>
     </div>
+<!--FOOTER-->
+<footer class="pie-pagina" id="footer">
+    <div class="grupo-1">
+        <div class="box">
+            <figure>
+                <a href="#">
+                    <img src="/img/logo.png" alt="logo">
+                </a>
+            </figure>
+        </div>
+        <div class="box">
+            <h2>CONTACTANOS</h2>
+            <p>Avenida Libertador Bernardo O'higgins, 1905, Santiago Centro</p>
+            <p>+56 9 2232 6206</p>
+            <p>ferremas@gmail.com</p>
+        </div>
+        <div class="box">
+            <h2>SIGUENOS</h2>
+            <div class="red-social">
+                <a href="#" class="insta"><img src="/img/instagram.png" alt="logo instagram"
+                        class="redes"></a>
+                <a href="#" class="face"><img src="/img/facebook.png" alt="logo facebook"
+                        class="redes"></a>
+                <a href="#" class="twitter"><img src="/img/twitter.png" alt="logo twitter"
+                        class="redes"></a>
+            </div>
+        </div>
+    </div>
+    <div class="grupo-2">
+        <small>&copy; 2024 <b> Ferremas </b> - Todos los Derechos Reservados.</small>
+    </div>
+</footer>
 </body>
 </html>
