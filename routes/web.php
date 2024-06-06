@@ -9,10 +9,6 @@ use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransbankController;
 
-// Página de bienvenida
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 
@@ -66,6 +62,14 @@ Route::get('/vendedorLogin', function () {
     return view('vendedorLogin');
 });
 
+Route::get('/failure', function () {
+    return view('failure');
+});
+
+Route::get('/success', function () {
+    return view('success');
+});
+
 // Rutas para Cliente
 Route::post('/registrar-cliente', [ClienteController::class, 'registrarCliente'])->name('registrar.cliente');
 Route::get('/formulario-registro', function () {
@@ -106,3 +110,4 @@ Route::post('/callback', [TransbankController::class, 'callback'])->name('transb
 //Rutas Categoria
 Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.index');
 Route::post('/catalogo', [CatalogoController::class, 'store'])->name('catalogo.store');
+Route::get('/callback', [TransbankController::class, 'callback'])->name('transbank.callback');
