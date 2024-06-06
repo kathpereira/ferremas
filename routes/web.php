@@ -62,6 +62,14 @@ Route::get('/vendedorLogin', function () {
     return view('vendedorLogin');
 });
 
+Route::get('/failure', function () {
+    return view('failure');
+});
+
+Route::get('/success', function () {
+    return view('success');
+});
+
 // Rutas para Cliente
 Route::post('/registrar-cliente', [ClienteController::class, 'registrarCliente'])->name('registrar.cliente');
 Route::get('/formulario-registro', function () {
@@ -98,3 +106,4 @@ Route::post('/bodeguero/remove', [BodegueroController::class, 'remove'])->name('
 //Rutas Transbank
 Route::post('/pagar', [TransbankController::class, 'createTransaction'])->name('transbank.create');
 Route::post('/callback', [TransbankController::class, 'callback'])->name('transbank.callback');
+Route::get('/callback', [TransbankController::class, 'callback'])->name('transbank.callback');

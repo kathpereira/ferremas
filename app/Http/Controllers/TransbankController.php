@@ -26,10 +26,10 @@ class TransbankController extends Controller
 
         if ($transaction->isApproved()) {
             // Aquí puedes manejar el caso de pago exitoso, como actualizar el estado del pedido en tu base de datos
-            return view('transbank.success', ['transaction' => $transaction]);
+            return view('success', ['transaction' => $transaction]);
         } else {
             // Aquí puedes manejar el caso de pago rechazado
-            return view('transbank.failure', ['transaction' => $transaction]);
+            return view('failure', ['transaction' => $transaction]);
         }
     }
 }
