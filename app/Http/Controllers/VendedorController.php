@@ -37,7 +37,9 @@ class VendedorController extends Controller
         ]);
 
         // Redirecciona a donde desees después de crear el vendedor
-        return redirect()->route('/adminVen')->with('success', 'Vendedor creado exitosamente.');
+        return redirect()->back()->with('Vendedor creado exitosamente.');
+        //usarlo en caso de que la ruta asignada no funcione
+        //return redirect()->route('adminVen')->with('success', 'Vendedor creado exitosamente.');
     }
 
     public function iniciarSesion(Request $request)

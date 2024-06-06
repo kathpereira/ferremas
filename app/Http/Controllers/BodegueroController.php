@@ -132,7 +132,9 @@ class BodegueroController extends Controller
         ]);
     
         // Redirecciona a donde desees después de crear el bodeguero
-        return redirect()->route('admin.bodeguero')->with('success', 'Bodeguero creado exitosamente.');
+        return redirect()->back()->with('Bodeguero creado exitosamente.');
+        //usarlo en caso de que la ruta asignada no funcione
+        //return redirect()->route('admin.bodeguero')->with('success', 'Bodeguero creado exitosamente.');
     }    
 
     public function iniciarSesion(Request $request)
