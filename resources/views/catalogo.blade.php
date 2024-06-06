@@ -20,22 +20,23 @@
     </div>
     <a class="btn" method="POST" action="{{ route('logout') }}"><button type="button" onclick="cerrarSesion()">Cerrar sesión</button></a>
 </header>
-<!--cards-->
+<!--CARDS-->
 <section class="contenedor">
-<div class="contenedor-items">
-    @foreach($productos as $producto)
-    <div class="item">
-        @if ($producto->imagen)
-            <img src="{{ $producto->imagen }}" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
-        @else
-            <img src="default-image.jpg" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
-        @endif
-        <span class="titulo-item">{{ $producto->nombre_prod }}</span>
-        <span class="precio-item">${{ number_format($producto->precio, 0, ',', '.') }}</span>
-        <button class="boton-item">Agregar al Carrito</button>
+    <div class="contenedor-items">
+        @foreach($productos as $producto)
+        <div class="item">
+            @if ($producto->imagen)
+                <img src="{{ asset($producto->imagen) }}" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
+            @else
+                <img src="{{ asset('img/default-image.jpg') }}" class="img-item card-img-top" alt="{{ $producto->nombre_prod }}">
+            @endif
+            <span class="titulo-item">{{ $producto->nombre_prod }}</span>
+            <span class="precio-item">${{ number_format($producto->precio, 0, ',', '.') }}</span>
+            <button class="boton-item">Agregar al Carrito</button>
+        </div>
+        @endforeach
     </div>
-    @endforeach
-</div>
+
     <!-- Carrito de Compras -->
     <div class="carrito" id="carrito">
         <div class="header-carrito">
