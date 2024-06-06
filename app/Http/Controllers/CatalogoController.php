@@ -4,14 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Models\Categoria;
 
 class CatalogoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Obtener todos los productos de la base de datos
-        $productos = Producto::all();
-        return view('catalogo', compact('productos'));
+        // Obtener todas las categorías
+        $categorias = Categoria::all();
+        
+        // Obtener los productos filtrados por categoría si se selecciona una categoría
+        $productos = Producto::query();
+
+        if ($request->has('categoria') && $request->categoria != '') {
+            $productos = $productos->where('id_categoria', $request->categoria);
+        }
+
+        $productos = $productos->get();
+
+        return view('catalogo', compact('productos', 'categorias'));
     }
 
     public function store(Request $request)

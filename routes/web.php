@@ -102,3 +102,7 @@ Route::post('/bodeguero/remove', [BodegueroController::class, 'remove'])->name('
 //Rutas Transbank
 Route::post('/pagar', [TransbankController::class, 'createTransaction'])->name('transbank.create');
 Route::post('/callback', [TransbankController::class, 'callback'])->name('transbank.callback');
+
+//Rutas Categoria
+Route::get('/catalogo', [CatalogoController::class, 'index'])->name('catalogo.index');
+Route::post('/catalogo', [CatalogoController::class, 'store'])->name('catalogo.store');

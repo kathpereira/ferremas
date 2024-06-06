@@ -20,6 +20,20 @@
     </div>
     <a class="btn" method="POST" action="{{ route('logout') }}"><button type="button" onclick="cerrarSesion()">Cerrar sesión</button></a>
 </header>
+<form action="{{ route('catalogo.index') }}" method="GET">
+            <div class="form-group">
+                <label for="categoria">Filtrar por Categoría:</label>
+                <select name="categoria" id="categoria" class="form-control">
+                    <option value="">Todas las Categorías</option>
+                    @foreach($categorias as $categoria)
+                        <option value="{{ $categoria->id_categoria }}" {{ request('categoria') == $categoria->id_categoria ? 'selected' : '' }}>
+                            {{ $categoria->nombre_cat }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
 <!--CARDS-->
 <section class="contenedor">
     <div class="contenedor-items">
