@@ -9,17 +9,13 @@ use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransbankController;
 
-// Página de bienvenida
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 
 
 
 // Otras vistas estáticas
-Route::get('/inicio', function () {
+Route::get('/', function () {
     return view('inicio');
 });
 Route::get('/cliente', function () {
