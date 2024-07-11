@@ -43,6 +43,8 @@
         <li>Monto: {{ $transaction->getAmount() }}</li>
         <li>Fecha: {{ $transaction->getTransactionDate() }}</li>
     </ul>
-<div>
+    <a href="{{ route('invoice.download', ['buyOrder' => $transaction->getBuyOrder()]) }}" class="btn btn-primary">Descargar Boleta</a>
+    <button onclick="window.print()">Imprimir Boleta</button>
+</div>
 </body>
 </html>

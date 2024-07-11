@@ -8,7 +8,9 @@ use App\Http\Controllers\BodegueroController;
 use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransbankController;
+use App\Http\Controllers\InvoiceController;
 
+Route::get('/invoice/download/{buyOrder}', [InvoiceController::class, 'downloadInvoice'])->name('invoice.download');
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 
