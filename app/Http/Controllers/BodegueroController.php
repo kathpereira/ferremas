@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bodeguero;
-use App\Models\Categoria;  
-use App\Models\Producto;  
+use App\Models\Categoria;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use PhpOffice\PhpWord\PhpWord;
@@ -12,7 +12,7 @@ use PhpOffice\PhpWord\IOFactory;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class BodegueroController extends Controller
 {
@@ -124,17 +124,15 @@ class BodegueroController extends Controller
             'contrasena_bod' => 'required',
         ]);
     
-        // Crea un nuevo bodeguero
+        // Crea un nuevo bodeguero con la contraseña encriptada
         Bodeguero::create([
             'nombre_bod' => $request->nombre_bod,
             'correo_bod' => $request->correo_bod,
-            'contrasena_bod' => $request->contrasena_bod,
+            'contrasena_bod' => Hash::make($request->contrasena_bod),
         ]);
     
         // Redirecciona a donde desees después de crear el bodeguero
-        return redirect()->back()->with('Bodeguero creado exitosamente.');
-        //usarlo en caso de que la ruta asignada no funcione
-        //return redirect()->route('admin.bodeguero')->with('success', 'Bodeguero creado exitosamente.');
+        return redirect()->back()->with('success', 'Bodeguero creado exitosamente.');
     }    
 
     public function iniciarSesion(Request $request)
@@ -153,19 +151,19 @@ class BodegueroController extends Controller
             ])->withInput();
         }  
 
-                // Verificar la contraseña sin encriptar
-                if ($request->contrasena_bod === $bodeguero->contrasena_bod) {
-                    // Autenticación exitosa
-                    // Guardar la información del bodeguero en la sesión
-                    session()->put('id_bodeguero', $bodeguero->id_bodeguero);
-                    session()->put('nombre_bod', $bodeguero->nombre_bod); 
-                    return redirect('/bodeguero'); 
-                } else {
-                    // Autenticación fallida
-                    return back()->withErrors([
-                        'contrasena_bod' => 'La contraseña es incorrecta.',
-                    ])->withInput();
-                }
+        // Verificar la contraseña encriptada
+        if (Hash::check($request->contrasena_bod, $bodeguero->contrasena_bod)) {
+            // Autenticación exitosa
+            // Guardar la información del bodeguero en la sesión
+            session()->put('id_bodeguero', $bodeguero->id_bodeguero);
+            session()->put('nombre_bod', $bodeguero->nombre_bod); 
+            return redirect('/bodeguero'); 
+        } else {
+            // Autenticación fallida
+            return back()->withErrors([
+                'contrasena_bod' => 'La contraseña es incorrecta.',
+            ])->withInput();
+        }
     }
     
     public function cerrarSesion(Request $request)
