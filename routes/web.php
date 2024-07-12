@@ -9,12 +9,17 @@ use App\Http\Controllers\ContadorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransbankController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InformeController;
 
+Route::post('/generar-informe', [InformeController::class, 'store'])->name('informe.store');
 Route::get('/invoice/download/{buyOrder}', [InvoiceController::class, 'downloadInvoice'])->name('invoice.download');
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 Route::post('/bodeguero/generateReport', [BodegueroController::class, 'generateReport'])->name('bodeguero.generateReport');
 
 
+Route::get('/informe/confirmacion', function () {
+    return view('confirmacion');
+})->name('informe.confirmacion');
 
 // Otras vistas estáticas
 Route::get('/', function () {
