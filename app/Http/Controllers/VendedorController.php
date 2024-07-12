@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vendedor;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use Illuminate\Support\Facades\Hash;
 
 class VendedorController extends Controller
 {
@@ -29,11 +30,11 @@ class VendedorController extends Controller
             'contrasena' => 'required',
         ]);
 
-        // Crea un nuevo vendedor
+        // Crea un nuevo vendedor con la contraseña encriptada
         Vendedor::create([
             'nombre_vendedor' => $request->nombre,
             'correo_vendedor' => $request->correo,
-            'contrasena_vendedor' => $request->contrasena,
+            'contrasena_vendedor' => Hash::make($request->contrasena), // Encriptar la contraseña
         ]);
 
         // Redirecciona a donde desees después de crear el vendedor
@@ -58,10 +59,10 @@ class VendedorController extends Controller
             ])->withInput();
         }
     
-        // Verificar la contraseña sin encriptar
-        if ($request->contrasena_vendedor === $vendedor->contrasena_vendedor) {
+        // Verificar la contraseña encriptada
+        if (Hash::check($request->contrasena_vendedor, $vendedor->contrasena_vendedor)) {
             // Autenticación exitosa
-            // Guardar la información del contador en la sesión
+            // Guardar la información del vendedor en la sesión
             session()->put('id_vendedor', $vendedor->id_vendedor);
             session()->put('nombre_vendedor', $vendedor->nombre_vendedor); 
             return redirect('/vendedor'); 

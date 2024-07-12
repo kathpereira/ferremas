@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Contador;
@@ -8,6 +9,7 @@ use PhpOffice\PhpWord\IOFactory;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use PhpOffice\PhpWord\Shared\ZipArchive;
+use Illuminate\Support\Facades\Hash;
 
 class ContadorController extends Controller
 {
@@ -20,11 +22,11 @@ class ContadorController extends Controller
             'contrasena_cont' => 'required',
         ]);
 
-        // Crea un nuevo contador
+        // Crea un nuevo contador con la contraseña encriptada
         Contador::create([
             'nombre_cont' => $request->nombre_cont,
             'correo_cont' => $request->correo_cont,
-            'contrasena_cont' => $request->contrasena_cont,
+            'contrasena_cont' => Hash::make($request->contrasena_cont), // Encriptar la contraseña
         ]);
 
         // Redirecciona a donde desees después de crear el contador
@@ -49,8 +51,8 @@ class ContadorController extends Controller
             ])->withInput();
         }
     
-        // Verificar la contraseña sin encriptar
-        if ($request->contrasena_cont === $contador->contrasena_cont) {
+        // Verificar la contraseña encriptada
+        if (Hash::check($request->contrasena_cont, $contador->contrasena_cont)) {
             // Autenticación exitosa
             // Guardar la información del contador en la sesión
             session()->put('id_contador', $contador->id_contador);
@@ -106,5 +108,4 @@ class ContadorController extends Controller
 
         return redirect()->back()->with('error', 'Formato no soportado.');
     }
-
 }
